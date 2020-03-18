@@ -1,0 +1,21 @@
+# Set of French vowels, written in IPA.
+# The French vowels system consists of 12 oral vowels and 4 nasal vowels
+define frOralVowels [ i | y | e | ø | ɛ | œ | ə | a | u | o | ɔ | ɑ ];
+define frNasalVowels [ ɛ̃ | œ̃ | ɔ̃ | ɑ̃ ];
+# Set of French consonants
+define frCons [ p | b | t | d | k | g | m | n | ɲ | ŋ | f | v | s | z | ʃ | ʒ | ʁ |  w | l | j | ɥ ];
+define frSounds [frOralVowels | frNasalVowels | frCons];
+
+# Set of Vietnamese vowels
+define viVowels [ i | e | ɛ | ɨ | ə | ə̆ | a | ă | u | o | ɔ | iə̯ | ɨə̯ | uə̯ ];
+define viCons [ p | ɓ | t | tʰ | ɗ | c | k | ʔ |  m | n | ɲ | ŋ | f | v | s | z | x | ɣ | h | w | l | r ];
+define viSounds [viVowels | viCons];
+
+# Phonological mappings
+define roundedHigh [ y -> w i ]; # could also be u, i
+define roundedMidFront [ ø -> ə , œ -> ə ];
+define nasalVowels [ ɛ̃ -> ɛ ŋ , ɑ̃ -> ɑ̃ ŋ , ɔ̃ -> o ŋ ];
+define deleteR [ ʁ -> 0 ];
+
+re [roundedHigh .o. roundedMidFront .o. nasalVowels .o. deleteR];
+
