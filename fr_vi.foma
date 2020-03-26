@@ -1,21 +1,50 @@
-# Set of French vowels, written in IPA.
+# FRENCH SOUND INVENTORY
 # The French vowels system consists of 12 oral vowels and 4 nasal vowels
 define frOralVowels [ i | y | e | ø | ɛ | œ | ə | a | u | o | ɔ | ɑ ];
 define frNasalVowels [ ɛ̃ | œ̃ | ɔ̃ | ɑ̃ ];
+
 # Set of French consonants
 define frCons [ p | b | t | d | k | g | m | n | ɲ | ŋ | f | v | s | z | ʃ | ʒ | ʁ |  w | l | j | ɥ ];
+define frLabials [ p | b | f | m ];
+define frDentals [ t | d | s | z | n | l ];
+define frNasals [ m | n | ɲ | ŋ ];
 define frSounds [frOralVowels | frNasalVowels | frCons];
 
+# VIETNAMESE SOUND INVENTORY
 # Set of Vietnamese vowels
 define viVowels [ i | e | ɛ | ɨ | ə | ə̆ | a | ă | u | o | ɔ | iə̯ | ɨə̯ | uə̯ ];
 define viCons [ p | ɓ | t | tʰ | ɗ | c | k | ʔ |  m | n | ɲ | ŋ | f | v | s | z | x | ɣ | h | w | l | r ];
 define viSounds [viVowels | viCons];
 
-# Phonological mappings
+# PHONOLOGICAL ADAPTATION PATTERNS
+
+# Mappings for consonants
+
+# Context-free mappings.
+define bChange [ b -> ɓ ];
+define dChange [ d -> ɗ ];
+define gChange [ g -> ɣ ];
+define rChange [ ʁ -> r ];
+define postAlveolarChange [ ʃ -> s , ʒ -> z ];
+define contextFreeMappings [ bChange .o. dChange .o. gChange .o. rChange .o. postAlveolarChange ];
+
+# Onset and coda changes for consonants.
+define rCodaChange [ ʁ -> k || _ .#. ];
+define labialCodaChange [ [ frLabials - m ] -> p || _ .#. ];
+define dentalCodaChange [ [ frDentals - [ n | l ] ] -> t || _ .#. ];
+define velarCodaChange [ [ k | g ] -> k || _ .#. ];
+define nlCodaChange [ [ n | l ] -> n || _ .#. ];
+define postAlveolarCodaChange [ [ ʃ | ʒ ] -> t || _ .#. ];
+define codaMappings [ rCodaChange .o. labialCodaChange .o. dentalCodaChange .o. velarCodaChange .o. nlCodaChange .o. postAlveolarCodaChange ];
+
+# Vowel mappings
 define roundedHigh [ y -> w i ]; # could also be u, i
 define roundedMidFront [ ø -> ə , œ -> ə ];
 define nasalVowels [ ɛ̃ -> ɛ ŋ , ɑ̃ -> ɑ̃ ŋ , ɔ̃ -> o ŋ ];
-define deleteR [ ʁ -> 0 ];
 
-re [roundedHigh .o. roundedMidFront .o. nasalVowels .o. deleteR];
+# Tone application (applied at the end)
+# Need syllabification to work.
+
+# Rule composition
+re [ codaMappings .o. roundedHigh .o. roundedMidFront .o. nasalVowels .o. contextFreeMappings];
 
