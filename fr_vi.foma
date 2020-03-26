@@ -24,9 +24,10 @@ define viSounds [viVowels | viCons];
 define bChange [ b -> ɓ ];
 define dChange [ d -> ɗ ];
 define gChange [ g -> ɣ ];
+define trChange [ t ʁ -> c ];
 define rChange [ ʁ -> r ];
 define postAlveolarChange [ ʃ -> s , ʒ -> z ];
-define contextFreeMappings [ bChange .o. dChange .o. gChange .o. rChange .o. postAlveolarChange ];
+define contextFreeMappings [ bChange .o. dChange .o. gChange .o. trChange .o. rChange .o. postAlveolarChange ];
 
 # Onset and coda changes for consonants.
 define rCodaChange [ ʁ -> k || _ .#. ];
@@ -43,8 +44,12 @@ define roundedMidFront [ ø -> ə , œ -> ə ];
 define nasalVowels [ ɛ̃ -> ɛ ŋ , ɑ̃ -> ɑ̃ ŋ , ɔ̃ -> o ŋ ];
 
 # Tone application (applied at the end)
+# define RisingTone [ 0 -> 1 || [p | t | k] _ , [p | t | k] "." _ ];
+# define defaultToHighLevel [ 0 -> "0" || _ .#. , _ "." ]; 
+# define toneChange [ RisingTone .o. defaultToHighLevel ];
 # Need syllabification to work.
 
+
 # Rule composition
-re [ codaMappings .o. roundedHigh .o. roundedMidFront .o. nasalVowels .o. contextFreeMappings];
+re [ codaMappings .o. roundedHigh .o. roundedMidFront .o. nasalVowels .o. contextFreeMappings ];
 
