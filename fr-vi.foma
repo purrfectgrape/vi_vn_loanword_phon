@@ -31,7 +31,7 @@ define postAlveolarChange [ ʃ -> s , ʒ -> z ];
 define contextFreeMappings [ bChange .o. dChange .o. gChange .o. trChange .o. rChange .o. postAlveolarChange ];
 
 # Onset and coda changes for consonants.
-define rCodaChange [ ʁ -> k || _ .#. ];
+define rCodaChange [ ʁ -> k || _ .#. ,, _ "."];
 define labialCodaChange [ [ frLabials - m ] -> p || _ .#. ];
 define dentalCodaChange [ [ frDentals - [ n | l ] ] -> t || _ .#. ];
 define velarCodaChange [ [ k | g ] -> k || _ .#. ];
@@ -42,14 +42,14 @@ define postAlveolarCodaChange [ [ ʃ | ʒ ] -> t || _ .#. ];
 # French onset consonant clusters include: sp, st, sk, spl, spʁ, stʁ, skl, skʁ, pn, ps, pf, pt, kn, km, kv, ks, kt, tl, tm, ts, tʃ, sl, sm, sn, sv, sf, ʃl, ʃʁ, ʃn, ʃv, ʃpʁ, psk, gn, gz, dz, dʒ, zl, zv, zb, zgʁ, mn, ft.
 
 # Epenthesis rules
-define epenthesisOnset [ b l -> b ə "2" . l ,, g l -> g ə "2" . l ,, k l -> k ə "2" . l ,,  s l -> s i "2" . l ,,  s t -> s i "2" . t ,,  s k -> s i "2" . k ,, s p -> s i "2" . b || .#. _ , . _ ];
+define epenthesisOnset [ b l -> b ə "2" "." l ,, g l -> g ə "2" "." l ,, k l -> k ə "2" "." l ,,  s l -> s i "2" "." l ,,  s t -> s i "2" "." t ,,  s k -> s i "2" "." k ,, s p -> s i "2" "." b || .#. _ , . _ ];
 
 # Coda cluster simplification
-define codaCluster [ l m -> n ,, l n -> m || _ .#.];
+define codaCluster [ l m -> m ,, l n -> m || _ .#.];
 define codaMappings [ rCodaChange .o. labialCodaChange .o. dentalCodaChange .o. velarCodaChange .o. nlCodaChange .o. postAlveolarCodaChange .o. epenthesisOnset .o. codaCluster ];
 
 # Vowel mappings
-define roundedHigh [ y -> w i ]; # could also be u, i
+define roundedHigh [ y -> w i ,, y -> u ]; # could also be u
 define roundedMidFront [ ø -> ə , œ -> ɤ ];
 define nasalVowels [ ɛ̃ -> ɛ ŋ , ɑ̃ -> ă ŋ , ɔ̃ -> o ŋ ];
 
@@ -57,6 +57,8 @@ define nasalVowels [ ɛ̃ -> ɛ ŋ , ɑ̃ -> ă ŋ , ɔ̃ -> o ŋ ];
 define RisingTone [ [..] -> 5 || [p | t | k] _ .#. , [p | t | k] _ "." ];
 define defaultToHighLevel [ [..] -> "1" || frSounds _ .#. ,frSounds _ "." ]; 
 define toneChange [ RisingTone .o. defaultToHighLevel ];
+define insertGlottal [ [..] -> ʔ || .#. _ viVowels ];
 
 # Rule composition
-re [ codaMappings .o. roundedHigh .o. roundedMidFront .o. nasalVowels .o. contextFreeMappings .o. toneChange ];
+define FrenchToVietnamese [ codaMappings .o. roundedHigh .o. roundedMidFront .o. nasalVowels .o. contextFreeMappings .o. toneChange .o. insertGlottal ];
+re FrenchToVietnamese;
