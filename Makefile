@@ -1,9 +1,9 @@
-test: fr_vi.fomabin fr_vi_gold.tsv
+test: fr-vi.fomabin fr-vi-gold.tsv
 	@echo "Test fst against gold corpus"
-	@cut -f1 fr_vi_gold.tsv | flookup -i -w "" fr_vi.fomabin | diff --suppress-common-lines -y fr_vi_gold.tsv -
+	@cut -f1 fr-vi-gold.tsv | flookup -i -w "" fr-vi.fomabin | diff --suppress-common-lines -y fr-vi-gold.tsv -
 
-fr_vi.fomabin: fr_vi.foma
-	@foma -l fr_vi.foma -e "save stack fr_vi.fomabin" -s
+fr-vi.fomabin: fr-vi.foma
+	@foma -l fr-vi.foma -e "save stack fr-vi.fomabin" -s
 
 clean:
 	rm -f *.fomabin
