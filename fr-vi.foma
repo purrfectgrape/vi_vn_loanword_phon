@@ -40,9 +40,9 @@ define lCodaChange [ l -> n ||  _ .#. , _ "."  ];
 define postAlveolarCodaChange [ [ ʃ | ʒ ] -> t || _ .#. , _ "."];
 
 # Gemination.
-define eGem [ "." f -> f "." f , "." s -> s "." s , "." t -> t "." t , "." l -> l "." l , "." n -> n "." n || e _ , a _ ];
-define oGem [ "." n -> n "." n , "." m ->  m "." m || o  _ ];
-define Gemination [ eGem .o. oGem ];
+#define eGem [ "." f -> f "." f , "." s -> s "." s , "." t -> t "." t , "." l -> l "." l , "." n -> n "." n || e _ , a _ ];
+#define oGem [ "." n -> n "." n , "." m ->  m "." m || o  _ ];
+#define Gemination [ eGem .o. oGem ];
  
 # Consonant cluster adaptation.
 # French onset consonant clusters include: sp, st, sk, spl, spʁ, stʁ, skl, skʁ, pn, ps, pf, pt, kn, km, kv, ks, kt, tl, tm, ts, tʃ, sl, sm, sn, sv, sf, ʃl, ʃʁ, ʃn, ʃv, ʃpʁ, psk, gn, gz, dz, dʒ, zl, zv, zb, zgʁ, mn, ft.
@@ -73,5 +73,5 @@ define toneChange [ RisingTone .o. defaultToHighLevel ];
 define insertGlottal [ [..] -> ʔ || .#. _ viVowels ];
 
 # Rule composition
-define FrenchToVietnamese [ Gemination .o. onsetMappings .o. codaMappings .o. vowelMappings .o. contextFreeMappings .o. toneChange .o. insertGlottal ];
+define FrenchToVietnamese [ onsetMappings .o. codaMappings .o. vowelMappings .o. contextFreeMappings .o. toneChange .o. insertGlottal ];
 re FrenchToVietnamese;
