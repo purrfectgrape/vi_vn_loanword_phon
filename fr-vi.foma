@@ -5,6 +5,7 @@ define frNasalVowels [ ɛ̃ | œ̃ | ɔ̃ | ɑ̃ ];
 
 # Set of French consonants
 define frCons [ p | b | t | d | k | g | m | n | ɲ | ŋ | f | v | s | z | ʃ | ʒ | ʁ |  w | l | j | ɥ | dʒ ]; # dʒ is rare in French
+define frConsinOnsetCluster [ p | t | k | f | v | b | d | g ]; 
 define frLabials [ p | b | f | m ];
 define frDentals [ t | d | s | z | n | l ];
 define frPalatals [ ɲ ];
@@ -30,7 +31,7 @@ define pChange [ p -> [ ɓ | p ] || .#. _ , "." _ ]; # onset only.
 define dChange [ d -> ɗ ];
 define gChange [ g -> ɣ ];
 define trChange [ t ʁ -> t͡ɕ ];  # Due to Hanoi dialect.
-define rChange [ ʁ -> z ]; # Also Hanoi dialect. Removed mapping to r from gold test set.
+define rChange [ ʁ -> z || .#. _ , "." _ ]; # Onset only. Also Hanoi dialect. Removed mapping to r from gold test set.
 #define njChange [ n j -> ɲ ];
 define postAlveolarChange [ dʒ -> z , ʃ -> s , ʒ -> z ];
 define contextFreeMappings [ pChange .o. bChange .o. dChange .o. gChange .o. trChange .o. rChange .o. postAlveolarChange ];
@@ -49,22 +50,25 @@ define contextFreeMappings [ pChange .o. bChange .o. dChange .o. gChange .o. trC
 define jRule [ j -> z || .#. _ , "." _ ,,
 	       [ m | n ] j -> ɲ || _ frOralVowels ,
 	       j -> i "." || [ m | n ] _ frOralVowels ];  # Conflict with rule n j above?
-define epenthesisOnset [ b l -> b ɤ "2" "." l ,
-			 g l -> g ɤ "2" "." l ,
+define epenthesisOnset [ b l -> b ɤ [ "2" | "1" ] "." l ,
+			 g l -> g ɤ [ "2" | "1" ] "." l ,
                          g l -> g ,
-			 g ʁ -> g ɤ "2" "." ʁ ,
-			 k l -> k ɤ "2" "." l ,
-			 s l -> s i "2" "." l ,
-  			 s t -> s i "2" "." t ,
-			 s k -> s i "2" "." k ,
-			 s p -> s i "2" "." b || .#. _ , "." _ ];
+			 g ʁ -> g ɤ [ "2" | "1" ] "." ʁ ,
+			 k l -> k ɤ [ "2" | "1" ] "." l ,
+			 s l -> s i [ "2" | "1" ] "." l ,
+  			 s t -> s i [ "2" | "1" ] "." t ,
+			 s k -> s i [ "2" | "1" ] "." k ,
+			 s p -> s i [ "2" | "1" ] "." b || .#. _ , "." _ ];
 
 # Deletion rules.
-define deletionOnset [ k ʁ -> k ,,
-		       b ʁ -> ɓ ,,
-		       f ʁ -> f ,,
-                       p l -> p ,,
-                       f l -> f || .#. _ , "." _ ]; 
+define deletionOnset [ p [ ʁ | l ] -> [ p | ɓ ] ,
+		       t l  -> t ,
+                       k [ ʁ | l ] -> k ,
+			f [ ʁ | l ] -> f ,
+			v [ ʁ | l ] -> v ,
+			b [ ʁ | l ] -> ɓ ,
+			d [ ʁ | l ] -> d ,
+			g [ ʁ | l ] -> g || .#. _ , "." _ ]; 
 define onsetMappings [ epenthesisOnset .o. jRule .o. deletionOnset ];
 
 # CODA CONSONANT RULES
@@ -78,16 +82,16 @@ define lCodaChange [ l -> n ||  _ .#. , _ "."  ];
 define postAlveolarCodaChange [ [ ʃ | ʒ ] -> t , ʃ -> k || _ .#. , _ "."];
 
 define codaCluster [ l m -> m ,
-		     l n -> m ,
+		     l n -> n ,
                      l k -> n ,
                      t k -> t ,
-		     k t -> k ,
-                     k s -> k ,
-                     k p -> k , # this is applied after rCodaChange
-                     k n -> k ,
+		     ʁ m -> m ,
+                     k frCons -> k ,
+                     ʁ frCons -> k ,
+		     m frCons -> m ,
+		     ʁ d -> t ,
                      ŋ t -> ŋ ,
-		     m ɓ -> m ,
-                     m p -> m || _ .#. , _ "." ];
+		     s frCons -> t || _ .#. , _ "." ];
 
 define codaMappings [ rCodaChange .o. labialCodaChange .o. dentalCodaChange .o. velarCodaChange .o. lCodaChange .o. postAlveolarCodaChange .o. epenthesisOnset .o. codaCluster ];
 
