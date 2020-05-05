@@ -4,7 +4,7 @@ define frOralVowels [ i | y | e | ø | ɛ | œ | ə | a | u | o | ɔ | ɑ ];
 define frNasalVowels [ ɛ̃ | œ̃ | ɔ̃ | ɑ̃ ];
 
 # Set of French consonants
-define frCons [ p | b | t | d | k | g | m | n | ɲ | ŋ | f | v | s | z | ʃ | ʒ | ʁ |  w | l | j | ɥ ];
+define frCons [ p | b | t | d | k | g | m | n | ɲ | ŋ | f | v | s | z | ʃ | ʒ | ʁ |  w | l | j | ɥ | dʒ ]; # dʒ is rare in French
 define frLabials [ p | b | f | m ];
 define frDentals [ t | d | s | z | n | l ];
 define frPalatals [ ɲ ];
@@ -26,13 +26,13 @@ define viSounds [ viVowels | viCons ];
 
 # Context-free mapping for consonants.
 define bChange [ b -> ɓ ];
-define pChange [ p -> ɓ || .#. _ , "." _ ]; # onset only.
+define pChange [ p -> [ ɓ | p ] || .#. _ , "." _ ]; # onset only.
 define dChange [ d -> ɗ ];
 define gChange [ g -> ɣ ];
 define trChange [ t ʁ -> t͡ɕ ];  # Due to Hanoi dialect.
 define rChange [ ʁ -> z ]; # Also Hanoi dialect. Removed mapping to r from gold test set.
 #define njChange [ n j -> ɲ ];
-define postAlveolarChange [ ʃ -> s , ʒ -> z ];
+define postAlveolarChange [ dʒ -> z , ʃ -> s , ʒ -> z ];
 define contextFreeMappings [ pChange .o. bChange .o. dChange .o. gChange .o. trChange .o. rChange .o. postAlveolarChange ];
 
 # Gemination.
