@@ -36,8 +36,6 @@ baʁ	ɓa1.zɤ1
 bœʁ	ɓɤ1
 bak	ɓăk5
 ba.lad	ɓa1.lat5
-ba.lad	ɓa1.lat5
-ba.last	ɓa1.lat5
 ba.last	ɓa1.lat5
 bal	ɓɛŋ1
 ba.lɛ	ɓa1.le1
@@ -107,7 +105,6 @@ dy.na.mo	ɗi1.na1.mo1
 ʁa.daʁ	za1.ɗa1
 ʁa.djɑ̃	za1.ɗi1.an1
 ʁa.djɔm	za1.ɗi1
-ʁa.djo	za1.ɗi1.o1
 ʁa.djo	ɹa1.ɗi1.o1
 ʁa.djo	za1.ɗi1.o1
 ʁa.flə	zap5
@@ -246,7 +243,6 @@ kaʁ.bɔn	kak5.ɓɔn1
 kaʁ.byʁ	kak5.ɓuə1
 kaʁ.dɑ̃	kak5.ɗăŋ1
 ka.ʃɛ	kat5.se1
-ka.ʃɛ	kat5.se1
 ka.ʁɔt	ka2.zot5
 ka.ʁi	ka1.zi1
 ka.ʁi	ka2.zi1
@@ -301,6 +297,7 @@ kɔ̃.fe.ti	koŋ1.fe1.ti1
 kɔ̃.fe.ti	koŋ1.fɛt5.ti1
 kʁik	kik5
 kɔ̃.plɛ	kɔm1.le1
+kɔ̃.plɛ	kom1.ple1
 kɔ̃.sɔʁ.sjɔm	koŋ1.sɔk5.si1.ʔɔm1
 kɔ̃.sɔl	kɔn1.son1
 kɔ̃.sɔl	koŋ1.sɔn1
@@ -315,6 +312,8 @@ kɛ	kɛ2
 kɔk	kok5
 kɔk.tɛl	kok5.taj1
 kɔ.mɑ̃d.kaʁ	kɔm1.măŋ1.ka1
+kɔ.mɑ̃d.kaʁ	ko1.măŋ1.ka1
+kɔ.mɑ̃d.kaʁ	ko1.măŋ1.kak5
 kɔ.mi.sjɔ̃	kɔm1.mi1.si1.oŋ1
 kɔ.mi.sjɔ̃	kɔm1.mit5.si1.oŋ1
 kɔ.njak	ko1.ɲăk5
@@ -351,7 +350,6 @@ lɛ̃	lɛŋ1
 le.ni.nist	le1.ni1.nit5
 lɛn	lɛn1
 lɔ.to	lo1.to1
-li.pid	li1.pit5
 li.pid	li1.pit5
 li.tɔ.gʁa.fi	li1.to1
 litʁ	lit5
@@ -425,6 +423,13 @@ o.to.mat	ʔat5.to1.mat5
 o.to.mɔ.bil	ʔo1.to1
 o.vɑ̃	ʔo1.văŋ1
 paʁ.pɛ̃	ɓa1.ɓɛŋ1
+paʁ.pɛ̃	ɓa1.pɛŋ1
+paʁ.pɛ̃	ɓak5.ɓɛŋ1
+paʁ.pɛ̃	ɓak5.pɛŋ1
+paʁ.pɛ̃	pa1.ɓɛŋ1
+paʁ.pɛ̃	pa1.pɛŋ1
+paʁ.pɛ̃	pak5.ɓɛŋ1
+paʁ.pɛ̃	pak5.pɛŋ1
 pa.gaj	ɓa1.ɣaj1
 pa.lɑ̃	pa1.lăŋ1 
 pa.lə.to	ɓɛŋ2.to1
@@ -583,17 +588,3 @@ vwal	vwan1
 y.ʁe	ʔu1.ze1
 ze.ʁo	ze1.zo1
 zi.klœʁ	zik5.lɤ1
-lo.ʒik	lo1.zik5
-kɔ̃.plɛ	kom1.ple1
-kɔ.mɑ̃d.kaʁ	ko1.măŋ1.kak5
-kɔk.tɛl	kok5.taj1
-kɔ.mɑ̃d.kaʁ	ko1.măŋ1.ka1
-kɔ̃.fe.ti	koŋ1.fe1.ti1
-kaʁ.bɔ.nat	kak5.ɓo1.nat5
-paʁ.pɛ̃	pak5.pɛŋ1
-paʁ.pɛ̃	pak5.ɓɛŋ1
-paʁ.pɛ̃	pa1.pɛŋ1
-paʁ.pɛ̃	pa1.ɓɛŋ1
-paʁ.pɛ̃	ɓak5.pɛŋ1
-paʁ.pɛ̃	ɓak5.ɓɛŋ1
-paʁ.pɛ̃	ɓa1.pɛŋ1
