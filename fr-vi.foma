@@ -7,15 +7,17 @@ define frNasalVowels [ ɛ̃ | œ̃ | ɔ̃ | ɑ̃ ];
 define frCons [ p | b | t | d | k | g | m | n | ɲ | ŋ | f | v | s | z | ʃ | ʒ | ʁ |  w | l | j | ɥ ];
 define frLabials [ p | b | f | m ];
 define frDentals [ t | d | s | z | n | l ];
+define frPalatals [ ɲ ];
 define frNasals [ m | n | ɲ | ŋ ];
+define frVelars [ k | g ];
 define frSounds [frOralVowels | frNasalVowels | frCons];
 
 # VIETNAMESE SOUND INVENTORY
 # Set of Vietnamese vowels
-define viVowels [ i | e | ɛ | ɨ | ə | ə̆ | a | ă | u | o | ɔ | iə̯ | ɨə̯ | uə̯ ];
+define viVowels [ i | e | ɛ | ɤ | ɤ̆ | a | ă | u | o | ɔ | ɯ | "iə"  | "uə" | "ɯə" ];
 # Note that some analysis uses c instead of t͡ɕ. We use the same convention as in Kirby's paper and use t͡ɕ for Vietnamese palatal.
-define viCons [ p | ɓ | t | tʰ | ɗ | t͡ɕ | k | ʔ |  m | n | ɲ | ŋ | f | v | s | z | x | ɣ | h | w | l | r ];
-define viSounds [viVowels | viCons];
+define viCons [ p | ɓ | t | tʰ | ɗ | t͡ɕ | k | ʔ |  m | n | ɲ | ŋ | f | v | s | z | x | ɣ | h | w | j | l | r ];
+define viSounds [ viVowels | viCons ];
 
 # PHONOLOGICAL ADAPTATION PATTERN RULES
 
@@ -23,16 +25,17 @@ define viSounds [viVowels | viCons];
 
 # Context-free mappings.
 define bChange [ b -> ɓ ];
+define pChange [ p -> [p | ɓ] ];
 define dChange [ d -> ɗ ];
 define gChange [ g -> ɣ ];
 define trChange [ t ʁ -> t͡ɕ ];  # Due to Hanoi dialect.
-define rChange [ ʁ -> z ];
+define rChange [ ʁ -> z ]; # Also Hanoi dialect. Removed mapping to r from gold test set.
 define njChange [ n j -> ɲ ];
 define postAlveolarChange [ ʃ -> s , ʒ -> z ];
-define contextFreeMappings [ bChange .o. dChange .o. gChange .o. trChange .o. rChange .o. njChange .o.  postAlveolarChange ];
+define contextFreeMappings [ pChange .o. bChange .o. dChange .o. gChange .o. trChange .o. rChange .o. njChange .o.  postAlveolarChange ];
 
 # Onset and coda changes for consonants.
-define rCodaChange [ ʁ -> k || _ "." , ʁ -> 0 || _ .#. ];
+define rCodaChange [ ʁ -> k || _ "." , ʁ -> 0 || _ .#. ]; # as observed in Kang et al.
 define labialCodaChange [ [ frLabials - m ] -> p || _ .#. , _ "."];
 define dentalCodaChange [ [ frDentals - [ n | l ] ] -> t || _ .#. , _ "." ];
 define velarCodaChange [ [ k | g ] -> k || _ .#. , _ "."];
@@ -48,24 +51,45 @@ define postAlveolarCodaChange [ [ ʃ | ʒ ] -> t || _ .#. , _ "."];
 # French onset consonant clusters include: sp, st, sk, spl, spʁ, stʁ, skl, skʁ, pn, ps, pf, pt, kn, km, kv, ks, kt, tl, tm, ts, tʃ, sl, sm, sn, sv, sf, ʃl, ʃʁ, ʃn, ʃv, ʃpʁ, psk, gn, gz, dz, dʒ, zl, zv, zb, zgʁ, mn, ft.
 
 # Epenthesis rules
-define epenthesisOnset [ b l -> b ə "2" "." l ,, g l -> g ə "2" "." l ,, g ʁ -> g ə "2" "." ʁ ,, k l -> k ə "2" "." l ,,  s l -> s i "2" "." l ,,  s t -> s i "2" "." t ,,  s k -> s i "2" "." k ,, s p -> s i "2" "." b || .#. _ , . _ ];
+define epenthesisOnset [ b l -> b ɤ "2" "." l ,
+			 g l -> g ɤ "2" "." l ,
+			 g ʁ -> g ɤ "2" "." ʁ ,
+			 k l -> k ɤ "2" "." l ,
+			 s l -> s i "2" "." l ,
+  			 s t -> s i "2" "." t ,
+			 s k -> s i "2" "." k ,
+			 s p -> s i "2" "." b || .#. _ , . _ ];
 
 # Deletion rules.
-define deletionOnset [ k ʁ -> k || .#. _ ]; 
+define deletionOnset [ k ʁ -> k || .#. _ , "." _ ]; 
 define onsetMappings [ epenthesisOnset .o. deletionOnset ];
 
 # Coda cluster simplification
-define codaCluster [ l m -> m , l n -> m || _ .#.];
+define codaCluster [ l m -> m ,
+		     l n -> m ,
+                     t k -> t ,
+                     ŋ t -> ŋ ,
+		     m ɓ -> m ,
+                     m p -> m || _ .#. , _ "." ];
 define codaMappings [ rCodaChange .o. labialCodaChange .o. dentalCodaChange .o. velarCodaChange .o. lCodaChange .o. postAlveolarCodaChange .o. epenthesisOnset .o. codaCluster ];
 
 # Vowel mappings
 define roundedHigh [ y -> w i ,, y -> u ]; # could also be u
-define roundedMidFront [ ø -> ə , œ -> ɤ ];
-define loiDePosition [ ɔ -> o , ɛ -> e || _ "." , _ .#. ];
-define nasalVowelsBeforeLabials [ ɛ̃ -> ɛ m , ɑ̃ -> ă m , ɔ̃ -> [ o | ɔ ]  m || _ (".") [p | b] ];
-define nasalVowels [ ɛ̃ -> ɛ ŋ , ɑ̃ -> ă ŋ , ɔ̃ -> o ŋ , ɔ̃ -> ɔ ŋ ];
+define aChange [ a -> ă || _ [ frPalatals | frVelars ] ]; # a remains a before uvular r.  
+define dipthongsforR [ 	u -> "uə" ,
+ 			i -> "iə" ,
+			y ->  w "iə" || _ ʁ ];
+define roundedMidFront [ [ ø | œ | ə ] -> ɤ ];
+define loiDePosition [ 	ɔ -> o ,
+			ɛ -> e || _ "." , _ .#. ];  # o and e are preferred in open syllables,
+define nasalVowelsBeforeLabials [ ɛ̃ -> ɛ m ,
+				  ɑ̃ -> ă m ,
+ 				  ɔ̃ -> [ o | ɔ ]  m || _ (".") [p | b] ];
+define nasalVowels [ ɛ̃ -> ɛ ŋ ,
+		     ɑ̃ -> ă ŋ , 
+		     ɔ̃ -> o ŋ ];  # do not include ɔ̃ -> ɔ ŋ because of how rare it is.
+define vowelMappings [ loiDePosition .o. aChange .o. dipthongsforR .o. nasalVowelsBeforeLabials .o. nasalVowels .o. roundedHigh .o. roundedMidFront ];
 
-define vowelMappings [ loiDePosition .o. nasalVowelsBeforeLabials .o. nasalVowels .o. roundedHigh .o. roundedMidFront ];
 # Tone application (applied at the end)
 define RisingTone [ [..] -> 5 || [p | t | k] _ .#. , [p | t | k] _ "." ];
 define defaultToHighLevel [ [..] -> "1" || viSounds _ .#. , viSounds _ "." ]; 
@@ -73,5 +97,5 @@ define toneChange [ RisingTone .o. defaultToHighLevel ];
 define insertGlottal [ [..] -> ʔ || .#. _ viVowels ];
 
 # Rule composition
-define FrenchToVietnamese [ onsetMappings .o. codaMappings .o. vowelMappings .o. contextFreeMappings .o. toneChange .o. insertGlottal ];
+define FrenchToVietnamese [ onsetMappings .o. vowelMappings .o. codaMappings .o. contextFreeMappings .o. toneChange .o. insertGlottal ];
 re FrenchToVietnamese;
