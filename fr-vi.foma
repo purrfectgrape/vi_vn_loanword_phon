@@ -18,7 +18,7 @@ define frSounds [frOralVowels | frNasalVowels | frCons];
 # Set of Vietnamese vowels
 define viVowels [ i | e | ɛ | ɤ | ɤ̆ | a | ă | u | o | ɔ | ɯ | "iə"  | "uə" | "ɯə" ];
 # Note that some analysis uses c instead of t͡ɕ. We use the same convention as in Kirby's paper and use t͡ɕ for Vietnamese palatal.
-define viCons [ p | ɓ | t | tʰ | ɗ | t͡ɕ | k | ʔ |  m | n | ɲ | ŋ | f | v | s | z | x | ɣ | h | w | j | l | r ];
+define viCons [ p | ɓ | t | tʰ | ɗ | t͡ɕ | k | ʔ |  m | n | ɲ | ŋ | f | v | s | z | x | ɣ | h | w | j | l ];
 define viSounds [ viVowels | viCons ];
 
 # PHONOLOGICAL ADAPTATION PATTERN RULES
